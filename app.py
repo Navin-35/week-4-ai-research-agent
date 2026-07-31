@@ -1,9 +1,13 @@
 from graph import graph
 
+question = input("Ask your research question: ")
+
 result = graph.invoke(
     {
-        "question": "What is LangGraph?"
+        "question": question
     }
 )
+
+print("\nAnswer:\n")
 
 print(result["answer"])

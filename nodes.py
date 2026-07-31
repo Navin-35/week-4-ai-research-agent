@@ -1,11 +1,13 @@
 from state import AgentState
+from chatbot import llm
+
 
 def research_node(state: AgentState):
 
     question = state["question"]
 
-    answer = f"I received your question: {question}"
+    response = llm.invoke(question)
 
     return {
-        "answer": answer
+        "answer": response.content
     }
