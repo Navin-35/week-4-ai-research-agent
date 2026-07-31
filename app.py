@@ -1,13 +1,18 @@
 from graph import graph
 
-question = input("Ask your research question: ")
+while True:
 
-result = graph.invoke(
-    {
-        "question": question
-    }
-)
+    question = input("\nAsk Research Question: ")
 
-print("\nAnswer:\n")
+    if question.lower() == "exit":
+        break
 
-print(result["answer"])
+    result = graph.invoke(
+        {
+            "question": question
+        }
+    )
+
+    print("\nResearch Summary\n")
+
+    print(result["answer"])
