@@ -14,7 +14,6 @@ def research_node(state: AgentState):
     web_text = ""
 
     for result in web:
-
         web_text += result.get("body", "") + "\n"
 
     research = f"""
@@ -27,46 +26,43 @@ WIKIPEDIA
 {wiki}
 """
 
+    retry_count = state.get("retry_count", 0)
+
+    retry = False
+
+    if len(web_text.strip()) < 100:
+        retry = True
+        retry_count += 1
+
     return {
-
         "web_result": web_text,
-
         "wiki_result": wiki,
-
-        "research": research
-
+        "research": research,
+        "retry": retry,
+        "retry_count": retry_count,
     }
 
 
 def summarize_node(state: AgentState):
 
-    question = state["question"]
-
-    research = state["research"]
-
     prompt = f"""
 You are an AI Research Assistant.
 
 Research Question:
-
-{question}
+{state["question"]}
 
 Research Material:
+{state["research"]}
 
-{research}
-
-Write a professional summary.
+Write a professional research summary in simple language.
 """
 
     response = llm.invoke(prompt)
 
     return {
-
         "answer": response.content
-
     }
 
 
 def decision_node(state: AgentState):
-
     return {}

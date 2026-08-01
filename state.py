@@ -1,14 +1,17 @@
 from typing import TypedDict
 
-
 class AgentState(TypedDict):
 
-    question: str
+    question:str
 
-    web_result: str
+    web_result:str
 
-    wiki_result: str
+    wiki_result:str
 
-    research: str
+    research:str
 
-    answer: str
+    answer:str
+
+    retry:bool
+
+    retry_count:int
